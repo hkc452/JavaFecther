@@ -18,7 +18,10 @@
 package com.hkc.imageCrawler;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 import edu.uci.ics.crawler4j.crawler.Page;
@@ -100,7 +103,16 @@ public class ImageCrawler extends WebCrawler {
 		String filename=StringHelper.replaceBlank(urlname.get(url));
 		String hashedName =filename+extension;
 		String db[]=filename.split("_");
-		new Dbhelper().excuteSql("insert into abouttao (seller,goodname,price) values(?,?,?)", new Object[]{db[0], db[1], db[2]});
+		InputStream fileInputStream=ImageCrawlController.class.getClassLoader().getResourceAsStream("DATA.properties");
+		Properties pp=new Properties();
+		try {
+			pp.load(fileInputStream);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String datable=pp.getProperty("dbtable");
+		new Dbhelper().excuteSql("insert into ? (seller,goodname,price) values(?,?,?)", new Object[]{datable,db[0], db[1], db[2]});
 		// store image
 		IO.writeBytesToFile(page.getContentData(), storageFolder.getAbsolutePath() + "/" + hashedName);
 

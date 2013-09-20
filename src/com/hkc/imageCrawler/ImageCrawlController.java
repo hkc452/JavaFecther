@@ -41,7 +41,7 @@ public class ImageCrawlController {
 
 	public static void main(String[] args) throws Exception {
 		
-		InputStream fileInputStream=Dbhelper.class.getClassLoader().getResourceAsStream("DATA.properties");
+		InputStream fileInputStream=ImageCrawlController.class.getClassLoader().getResourceAsStream("DATA.properties");
 		Properties pp=new Properties();
 		pp.load(fileInputStream);
 		String rootFolder = pp.getProperty("rootFolder");
