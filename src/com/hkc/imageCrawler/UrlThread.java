@@ -46,7 +46,7 @@ public class UrlThread {
 						  
 					}
 					for (int j = 0; j < elements.size(); j++) {
-						urlfile.put(elements.get(j).attr("src"), sellers.get(j).text()+"_"+goods.get(j).attr("title")+"_"+prices.get(j).text()+"_"+buys.get(j).text());
+						urlfile.put(elements.get(j).attr("src"), StringHelper.replaceBlank(sellers.get(j).text())+"_"+StringHelper.replaceBlank(goods.get(j).attr("title"))+"_"+StringHelper.replaceBlank(prices.get(j).text())+"_"+StringHelper.replaceBlank(buys.get(j).text()));
 					}
 				  }else {
 					  System.out.println("Пе");
