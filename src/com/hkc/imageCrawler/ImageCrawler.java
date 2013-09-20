@@ -103,16 +103,9 @@ public class ImageCrawler extends WebCrawler {
 		String filename=StringHelper.replaceBlank(urlname.get(url));
 		String hashedName =filename+extension;
 		String db[]=filename.split("_");
-		InputStream fileInputStream=ImageCrawlController.class.getClassLoader().getResourceAsStream("DATA.properties");
-		Properties pp=new Properties();
-		try {
-			pp.load(fileInputStream);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String datable=pp.getProperty("dbtable");
-		new Dbhelper().excuteSql("insert into ? (seller,goodname,price) values(?,?,?)", new Object[]{datable,db[0], db[1], db[2]});
+	
+		
+		new Dbhelper().excuteSql("insert into abouttao (seller,goodname,price) values(?,?,?)", new Object[]{db[0], db[1], db[2]});
 		// store image
 		IO.writeBytesToFile(page.getContentData(), storageFolder.getAbsolutePath() + "/" + hashedName);
 
